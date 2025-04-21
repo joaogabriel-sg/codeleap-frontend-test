@@ -1,0 +1,79 @@
+# Vite React Template
+
+A ready-to-use template to bootstrap React projects with Vite, React and TypeScript — optimized for speed, dev experience, and scalability.
+
+## Getting started
+
+### Download and Install
+
+Use `degit` to scaffold a new project based on this template:
+
+```
+npx degit https://github.com/joaogabriel-sg/vite-react-template#main my-app
+cd my-app
+pnpm install
+pnpm setup:project
+```
+
+### Run the app
+
+To start the development server, run:
+
+```
+pnpm dev
+```
+
+The app will be available at [http://localhost:5173](http://localhost:5173) by default.
+
+## What's included
+
+This template comes pre-configured with:
+
+- ⚡️ Vite — build tool and dev server
+- ⚛️ React — UI library
+- 🧠 TypeScript — static typing
+- 🎨 Tailwind CSS — utility-first CSS framework
+- 🧹 ESLint — code linting
+- ✨ Prettier — code formatting
+- 🧪 Vitest — unit testing
+- 🧭 Playwright — end-to-end testing
+- 🪝 Lefthook — git hooks
+- 🔎 Path mapping — use "@/..." instead of relative paths
+- ✅ PR workflow — lint, type check, and unit tests before merging
+
+## Available scripts
+
+- `pnpm setup:project` — install deps and enable git hooks
+- `pnpm dev` — start development server
+- `pnpm build` — type-check and create production build
+- `pnpm preview` — preview production build
+- `pnpm lint` — run ESLint
+- `pnpm lint:fix` — fix lint issues
+- `pnpm typeCheck` — run TypeScript type checks
+- `pnpm test:unit` — run unit tests (Vitest)
+- `pnpm test:unit:watch` — run unit tests in watch mode
+- `pnpm test:unit:coverage` — run unit tests with coverage
+- `pnpm test:unit:coverage:watch` — watch mode + coverage
+- `pnpm test:e2e` — run e2e tests (Playwright)
+- `pnpm test:e2e:ui` — run e2e tests with UI
+- `pnpm test:e2e:report` — show Playwright HTML report
+
+## Path Mapping (Alias)
+
+To improve DX and avoid long relative imports like `../../../components`, this project uses a path alias:
+
+- `@/` points to the `src/` directory.
+  You can use it in your imports like this:
+
+```ts
+import { Button } from "@/components/Button";
+```
+
+The alias is configured in:
+
+- `tsconfig.json` — for TypeScript support
+- `vite.config.ts` — for Vite resolution
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for more information.
