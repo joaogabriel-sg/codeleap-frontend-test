@@ -4,6 +4,7 @@ import { useLoggedUser } from "@/shared/hooks/use-logged-user";
 import { formatRelativeTime } from "@/shared/utils/date";
 import { PencilIcon, Trash2Icon } from "lucide-react";
 
+import { CreatePostForm } from "../../components/create-post-form";
 import {
   PostCardActions,
   PostCardContent,
@@ -14,14 +15,12 @@ import {
   PostCardTime,
   PostCardTitle,
 } from "../../components/post-card";
-import { useListPostsQuery } from "../../hooks/queries/use-list-posts-query";
+import { usePostsPageController } from "./posts.controller";
 
 export function PostsPage() {
   const loggedUser = useLoggedUser();
-  const { data, isLoading } = useListPostsQuery();
-
-  const posts = data?.results ?? [];
-  const showEmptyState = !isLoading && posts.length === 0;
+  const { isLoadingPostsList, posts, showEmptyState } =
+    usePostsPageController();
 
   return (
     <div className="mx-auto max-w-3xl bg-white min-h-screen">
@@ -29,8 +28,10 @@ export function PostsPage() {
         <h1 className="text-2xl font-bold">CodeLeap Network</h1>
       </div>
 
-      <div className="space-y-4 p-6">
-        {isLoading &&
+      <div className="space-y-6 p-6">
+        <CreatePostForm />
+
+        {isLoadingPostsList &&
           Array.from({ length: 5 }).map((_, index) => (
             <PostCardRoot key={index}>
               <PostCardHeader className="bg-transparent">
@@ -50,7 +51,7 @@ export function PostsPage() {
             </PostCardRoot>
           ))}
 
-        {!isLoading &&
+        {!isLoadingPostsList &&
           posts.map((post) => (
             <PostCardRoot className="max-w-3xl" key={post.id}>
               <PostCardHeader>
