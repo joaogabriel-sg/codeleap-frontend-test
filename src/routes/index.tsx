@@ -1,3 +1,5 @@
+import { AppLayout } from "@/modules/app/components/layouts/app-layout";
+import { PostsPage } from "@/modules/app/modules/posts";
 import { AuthLayout, SignUpPage } from "@/modules/auth";
 import { createBrowserRouter } from "react-router";
 
@@ -12,7 +14,7 @@ export const router = createBrowserRouter([
   {
     children: [
       {
-        element: <SignUpPage />,
+        Component: SignUpPage,
         path: "sign-up",
       },
     ],
@@ -23,9 +25,11 @@ export const router = createBrowserRouter([
   {
     children: [
       {
-        element: <div>App</div>,
+        Component: PostsPage,
+        index: true,
       },
     ],
+    Component: AppLayout,
     loader: loaders.privateRoute,
     path: "/app",
   },
