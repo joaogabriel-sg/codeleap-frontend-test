@@ -6,7 +6,6 @@ import reactRefresh from "eslint-plugin-react-refresh";
 import perfectionist from "eslint-plugin-perfectionist";
 import unicorn from "eslint-plugin-unicorn";
 import tseslint from "typescript-eslint";
-import vitest from "@vitest/eslint-plugin";
 import pluginQuery from "@tanstack/eslint-plugin-query";
 
 export default tseslint.config(
@@ -70,28 +69,6 @@ export default tseslint.config(
           ignore: ["semVer", "SemVer"],
         },
       ],
-    },
-  },
-  {
-    files: ["**/*.spec.{ts,tsx}"],
-    plugins: {
-      vitest,
-    },
-    rules: {
-      ...vitest.configs.recommended.rules,
-    },
-    settings: {
-      vitest: {
-        typecheck: true,
-      },
-    },
-    languageOptions: {
-      globals: {
-        ...vitest.environments.env.globals,
-      },
-      parserOptions: {
-        project: "tsconfig.app.json",
-      },
     },
   },
   prettier,
