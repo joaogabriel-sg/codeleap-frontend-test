@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 
 export type UseDialogPropsReturn = {
   change: (value: boolean) => void;
@@ -22,5 +22,9 @@ export function useDialog({
 
   const close = useCallback(() => setVisible(false), []);
 
-  return { change, close, show, visible };
+  const memoizedReturn = useMemo(() => {
+    return { change, close, show, visible };
+  }, [change, close, show, visible]);
+
+  return memoizedReturn;
 }
