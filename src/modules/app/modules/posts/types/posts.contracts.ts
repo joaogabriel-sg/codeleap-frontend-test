@@ -8,6 +8,10 @@ export type InputCreatePost = {
   username: string;
 };
 
+export type InputDeletePost = {
+  id: number;
+};
+
 export type OutputCreatePost = Post;
 
 export type OutputListPosts = Pagination<Post>;

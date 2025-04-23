@@ -5,6 +5,7 @@ import { formatRelativeTime } from "@/shared/utils/date";
 import { PencilIcon, Trash2Icon } from "lucide-react";
 
 import { CreatePostForm } from "../../components/create-post-form";
+import { DeletePostAlertDialog } from "../../components/delete-post-alert-dialog";
 import {
   PostCardActions,
   PostCardContent,
@@ -19,8 +20,14 @@ import { usePostsPageController } from "./posts.controller";
 
 export function PostsPage() {
   const loggedUser = useLoggedUser();
-  const { isLoadingPostsList, posts, showEmptyState } =
-    usePostsPageController();
+  const {
+    deletePostAlertDialog,
+    handleOpenDeletePostAlertDialog,
+    isLoadingPostsList,
+    posts,
+    selectedPost,
+    showEmptyState,
+  } = usePostsPageController();
 
   return (
     <div className="mx-auto max-w-3xl bg-white min-h-screen">
@@ -62,6 +69,7 @@ export function PostsPage() {
                     <Button
                       aria-label="Delete post"
                       data-slot="card-action-button"
+                      onClick={() => handleOpenDeletePostAlertDialog(post)}
                       variant="ghost"
                     >
                       <Trash2Icon className="size-6" />
@@ -100,6 +108,12 @@ export function PostsPage() {
           </div>
         )}
       </div>
+
+      <DeletePostAlertDialog
+        isOpen={deletePostAlertDialog.visible}
+        onOpenChange={deletePostAlertDialog.change}
+        post={selectedPost}
+      />
     </div>
   );
 }
