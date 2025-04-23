@@ -34,15 +34,19 @@ export const usePostsPageController = () => {
   };
 
   return {
-    deletePostAlertDialog,
-    handleCloseDeletePostAlertDialog,
-    handleCloseUpdatePostDialog,
-    handleOpenDeletePostAlertDialog,
-    handleOpenUpdatePostDialog,
-    isLoadingPostsList,
+    dialogs: {
+      deletePostAlertDialog,
+      onCloseDeletePostAlertDialog: handleCloseDeletePostAlertDialog,
+      onCloseUpdatePostDialog: handleCloseUpdatePostDialog,
+      onOpenDeletePostAlertDialog: handleOpenDeletePostAlertDialog,
+      onOpenUpdatePostDialog: handleOpenUpdatePostDialog,
+      updatePostDialog,
+    },
     posts,
     selectedPost,
-    showEmptyState,
-    updatePostDialog,
+    state: {
+      isEmpty: showEmptyState,
+      isLoadingPostsList,
+    },
   };
 };
