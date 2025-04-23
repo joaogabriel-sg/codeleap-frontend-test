@@ -1,4 +1,4 @@
-import { useLoggedUser } from "@/shared/hooks/use-logged-user";
+import { useAuthUser } from "@/modules/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -10,7 +10,7 @@ import {
 } from "../../types/posts.schemas";
 
 export const useCreatePostFormController = () => {
-  const loggedUser = useLoggedUser();
+  const { username } = useAuthUser();
   const { isPending: isCreatingPost, mutateAsync } = useCreatePostMutation();
 
   const createPostForm = useForm<CreatePostFormData>({
@@ -26,7 +26,7 @@ export const useCreatePostFormController = () => {
       await mutateAsync({
         content: data.content,
         title: data.title,
-        username: loggedUser,
+        username,
       });
 
       createPostForm.reset();

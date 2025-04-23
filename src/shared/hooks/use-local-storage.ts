@@ -25,5 +25,14 @@ export function useLocalStorage<T>(key: string, initialValue: T) {
     }
   };
 
-  return [storedValue, setValue] as const;
+  const removeValue = () => {
+    try {
+      globalThis.localStorage.removeItem(key);
+      setStoredValue(initialValue);
+    } catch (error) {
+      console.warn("Error removing from localStorage:", error);
+    }
+  };
+
+  return [storedValue, setValue, removeValue] as const;
 }
