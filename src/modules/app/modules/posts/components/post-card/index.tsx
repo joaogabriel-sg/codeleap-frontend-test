@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { formatRelativeTime } from "@/shared/utils/date";
+import { useRelativeTime } from "@/shared/hooks/use-relative-time";
 import { PencilIcon, Trash2Icon } from "lucide-react";
 import { memo } from "react";
 
@@ -34,6 +34,8 @@ type PostCardOwnerProps = {
 };
 
 function PostCardComponent(props: PostCardComponentProps) {
+  const time = useRelativeTime(props.post.created_datetime, 10_000);
+
   return (
     <PostCardRoot className="max-w-3xl">
       <PostCardHeader>
@@ -63,9 +65,7 @@ function PostCardComponent(props: PostCardComponentProps) {
       <PostCardContent>
         <PostCardDetails>
           <PostCardMention>@{props.post.username}</PostCardMention>
-          <PostCardTime>
-            {formatRelativeTime(props.post.created_datetime)}
-          </PostCardTime>
+          <PostCardTime>{time}</PostCardTime>
         </PostCardDetails>
 
         <p className="text-base">{props.post.content}</p>
