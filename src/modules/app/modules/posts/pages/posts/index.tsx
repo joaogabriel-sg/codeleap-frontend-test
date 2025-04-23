@@ -23,6 +23,7 @@ export function PostsPage() {
   const loggedUser = useLoggedUser();
   const {
     deletePostAlertDialog,
+    handleCloseDeletePostAlertDialog,
     handleCloseUpdatePostDialog,
     handleOpenDeletePostAlertDialog,
     handleOpenUpdatePostDialog,
@@ -116,7 +117,7 @@ export function PostsPage() {
 
       <DeletePostAlertDialog
         isOpen={deletePostAlertDialog.visible}
-        onOpenChange={deletePostAlertDialog.change}
+        onOpenChange={handleCloseDeletePostAlertDialog}
         post={selectedPost}
       />
 

@@ -18,6 +18,11 @@ export const usePostsPageController = () => {
     deletePostAlertDialog.show();
   };
 
+  const handleCloseDeletePostAlertDialog = () => {
+    setSelectedPost(null);
+    deletePostAlertDialog.close();
+  };
+
   const handleOpenUpdatePostDialog = (post: Post) => {
     setSelectedPost(post);
     updatePostDialog.show();
@@ -30,6 +35,7 @@ export const usePostsPageController = () => {
 
   return {
     deletePostAlertDialog,
+    handleCloseDeletePostAlertDialog,
     handleCloseUpdatePostDialog,
     handleOpenDeletePostAlertDialog,
     handleOpenUpdatePostDialog,
