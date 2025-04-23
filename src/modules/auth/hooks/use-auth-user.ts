@@ -11,12 +11,12 @@ export const useAuthUser = () => {
 
   const logIn = (username: string) => {
     setUsername(username);
-    navigate("/app");
+    navigate("/app", { replace: true });
   };
 
   const logOut = () => {
     removeUsername();
-    navigate("/auth/sign-up", { replace: true });
+    navigate("/auth/sign-in", { replace: true });
   };
 
   return { logIn, logOut, username };

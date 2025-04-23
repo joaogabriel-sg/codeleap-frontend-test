@@ -15,9 +15,5 @@ export const useManageUsers = () => {
     return users.includes(username);
   };
 
-  return {
-    isUserRegistered,
-    registerUser,
-    users,
-  };
+  return { isUserRegistered, registerUser };
 };
