@@ -1,10 +1,17 @@
 import { AppLayout } from "@/modules/app/components/layouts/app-layout";
-import { PostsPage } from "@/modules/app/modules/posts";
-import { AuthLayout, SignInPage, SignUpPage } from "@/modules/auth";
+import { AuthLayout } from "@/modules/auth";
+import { namedLazyLoad } from "@/shared/utils/named-lazy-load";
 import { createBrowserRouter } from "react-router";
 
 import { loaders } from "./loaders";
 import { RedirectWithPermissions } from "./redirect";
+
+const { SignInPage, SignUpPage } = namedLazyLoad(
+  () => import("@/modules/auth"),
+);
+const { PostsPage } = namedLazyLoad(
+  () => import("@/modules/app/modules/posts"),
+);
 
 export const router = createBrowserRouter([
   {
