@@ -1,5 +1,5 @@
 import { useDialog } from "@/shared/hooks/use-dialog";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useInView } from "react-intersection-observer";
 
 import { useListPostsQuery } from "../../hooks/queries/use-list-posts-query";
@@ -25,25 +25,31 @@ export const usePostsPageController = () => {
     return data?.pages.flatMap((page) => page.results) ?? [];
   }, [data?.pages]);
 
-  const handleOpenDeletePostAlertDialog = (post: Post) => {
-    setSelectedPost(post);
-    deletePostAlertDialog.show();
-  };
+  const handleOpenDeletePostAlertDialog = useCallback(
+    (post: Post) => {
+      setSelectedPost(post);
+      deletePostAlertDialog.show();
+    },
+    [deletePostAlertDialog],
+  );
 
-  const handleCloseDeletePostAlertDialog = () => {
+  const handleCloseDeletePostAlertDialog = useCallback(() => {
     setSelectedPost(null);
     deletePostAlertDialog.close();
-  };
+  }, [deletePostAlertDialog]);
 
-  const handleOpenUpdatePostDialog = (post: Post) => {
-    setSelectedPost(post);
-    updatePostDialog.show();
-  };
+  const handleOpenUpdatePostDialog = useCallback(
+    (post: Post) => {
+      setSelectedPost(post);
+      updatePostDialog.show();
+    },
+    [updatePostDialog],
+  );
 
-  const handleCloseUpdatePostDialog = () => {
+  const handleCloseUpdatePostDialog = useCallback(() => {
     setSelectedPost(null);
     updatePostDialog.close();
-  };
+  }, [updatePostDialog]);
 
   useEffect(() => {
     if (isLastListItemInView && !isFetchingMorePosts) {
@@ -52,14 +58,14 @@ export const usePostsPageController = () => {
   }, [fetchMorePosts, isFetchingMorePosts, isLastListItemInView]);
 
   return {
-    dialog: {
+    dialogs: {
       deletePostAlertDialog,
-      onCloseDeletePostAlertDialog: handleCloseDeletePostAlertDialog,
-      onCloseUpdatePostDialog: handleCloseUpdatePostDialog,
-      onOpenDeletePostAlertDialog: handleOpenDeletePostAlertDialog,
-      onOpenUpdatePostDialog: handleOpenUpdatePostDialog,
       updatePostDialog,
     },
+    onCloseDeletePostAlertDialog: handleCloseDeletePostAlertDialog,
+    onCloseUpdatePostDialog: handleCloseUpdatePostDialog,
+    onOpenDeletePostAlertDialog: handleOpenDeletePostAlertDialog,
+    onOpenUpdatePostDialog: handleOpenUpdatePostDialog,
     pagination: {
       hasMorePostsToFetch,
       isLastListItemInView,

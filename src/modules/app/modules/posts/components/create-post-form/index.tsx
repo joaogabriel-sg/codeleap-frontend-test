@@ -17,10 +17,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Loader2Icon } from "lucide-react";
+import { memo } from "react";
 
 import { useCreatePostFormController } from "./create-post-form.controller";
 
-export function CreatePostForm() {
+function CreatePostFormComponent() {
   const { createPostForm, handleCreatePost, isCreatingPost } =
     useCreatePostFormController();
 
@@ -82,3 +83,5 @@ export function CreatePostForm() {
     </Form>
   );
 }
+
+export const CreatePostForm = memo(CreatePostFormComponent);
