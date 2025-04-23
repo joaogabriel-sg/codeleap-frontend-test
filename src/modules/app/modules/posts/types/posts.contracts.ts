@@ -12,6 +12,14 @@ export type InputDeletePost = {
   id: number;
 };
 
+export type InputUpdatePost = {
+  content: string;
+  id: number;
+  title: string;
+};
+
 export type OutputCreatePost = Post;
 
 export type OutputListPosts = Pagination<Post>;
+
+export type OutputUpdatePost = Post;

@@ -16,18 +16,12 @@ import {
   PostCardTime,
   PostCardTitle,
 } from "../../components/post-card";
+import { UpdatePostDialog } from "../../components/update-post-dialog";
 import { usePostsPageController } from "./posts.controller";
 
 export function PostsPage() {
   const loggedUser = useLoggedUser();
-  const {
-    deletePostAlertDialog,
-    handleOpenDeletePostAlertDialog,
-    isLoadingPostsList,
-    posts,
-    selectedPost,
-    showEmptyState,
-  } = usePostsPageController();
+  const { dialogs, posts, selectedPost, state } = usePostsPageController();
 
   return (
     <div className="mx-auto max-w-3xl bg-white min-h-screen">
@@ -38,7 +32,7 @@ export function PostsPage() {
       <div className="space-y-6 p-6">
         <CreatePostForm />
 
-        {isLoadingPostsList &&
+        {state.isLoadingPostsList &&
           Array.from({ length: 5 }).map((_, index) => (
             <PostCardRoot key={index}>
               <PostCardHeader className="bg-transparent">
@@ -58,7 +52,7 @@ export function PostsPage() {
             </PostCardRoot>
           ))}
 
-        {!isLoadingPostsList &&
+        {!state.isLoadingPostsList &&
           posts.map((post) => (
             <PostCardRoot className="max-w-3xl" key={post.id}>
               <PostCardHeader>
@@ -69,7 +63,7 @@ export function PostsPage() {
                     <Button
                       aria-label="Delete post"
                       data-slot="card-action-button"
-                      onClick={() => handleOpenDeletePostAlertDialog(post)}
+                      onClick={() => dialogs.onOpenDeletePostAlertDialog(post)}
                       variant="ghost"
                     >
                       <Trash2Icon className="size-6" />
@@ -77,6 +71,7 @@ export function PostsPage() {
                     <Button
                       aria-label="Edit post"
                       data-slot="card-action-button"
+                      onClick={() => dialogs.onOpenUpdatePostDialog(post)}
                       variant="ghost"
                     >
                       <PencilIcon className="size-6" />
@@ -98,7 +93,7 @@ export function PostsPage() {
             </PostCardRoot>
           ))}
 
-        {showEmptyState && (
+        {state.isEmpty && (
           <div className="flex h-96 items-center justify-center">
             <p className="text-lg text-muted-foreground text-center">
               No posts available.
@@ -110,8 +105,14 @@ export function PostsPage() {
       </div>
 
       <DeletePostAlertDialog
-        isOpen={deletePostAlertDialog.visible}
-        onOpenChange={deletePostAlertDialog.change}
+        isOpen={dialogs.deletePostAlertDialog.visible}
+        onOpenChange={dialogs.onCloseDeletePostAlertDialog}
+        post={selectedPost}
+      />
+
+      <UpdatePostDialog
+        isOpen={dialogs.updatePostDialog.visible}
+        onClose={dialogs.onCloseUpdatePostDialog}
         post={selectedPost}
       />
     </div>

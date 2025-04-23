@@ -6,3 +6,10 @@ export const createPostSchema = z.object({
 });
 
 export type CreatePostFormData = z.infer<typeof createPostSchema>;
+
+export const updatePostSchema = z.object({
+  content: z.string().min(1, { message: "Content is required" }),
+  title: z.string().min(1, { message: "Title is required" }),
+});
+
+export type UpdatePostFormData = z.infer<typeof updatePostSchema>;

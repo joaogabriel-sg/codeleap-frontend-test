@@ -4,8 +4,10 @@ import { Pagination } from "@/shared/types/pagination";
 import {
   InputCreatePost,
   InputDeletePost,
+  InputUpdatePost,
   OutputCreatePost,
   OutputListPosts,
+  OutputUpdatePost,
 } from "../types/posts.contracts";
 import { Post } from "../types/posts.types";
 
@@ -21,6 +23,14 @@ class PostsService {
 
   async list(): Promise<OutputListPosts> {
     const { data } = await api.get<Pagination<Post>>("/careers/");
+    return data;
+  }
+
+  async update(input: InputUpdatePost): Promise<OutputUpdatePost> {
+    const { data } = await api.patch<Post>(`/careers/${input.id}/`, {
+      content: input.content,
+      title: input.title,
+    });
     return data;
   }
 }
