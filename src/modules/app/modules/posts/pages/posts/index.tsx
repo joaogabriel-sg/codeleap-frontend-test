@@ -28,9 +28,13 @@ export function PostsPage() {
     <div className="mx-auto max-w-3xl bg-white min-h-screen">
       <div className="p-4 md:p-6 bg-primary text-primary-foreground flex items-center justify-between gap-4">
         <h1 className="text-2xl font-bold">CodeLeap Network</h1>
-        <Button onClick={logOut} variant="ghost">
-          <LogOutIcon className="size-6" />
-        </Button>
+
+        <div className="flex items-center gap-2">
+          <span>{username}</span>
+          <Button onClick={logOut} variant="ghost">
+            <LogOutIcon className="size-6" />
+          </Button>
+        </div>
       </div>
 
       <div className="space-y-6 p-6">

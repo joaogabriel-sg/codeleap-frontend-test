@@ -5,9 +5,9 @@ import { useAuthUser } from "../../hooks/use-auth-user";
 import { useManageUsers } from "../../hooks/use-manage-users";
 import { SignUpFormData, signUpSchema } from "../../types/auth.schema";
 
-export const useSignUpController = () => {
+export const useSignInController = () => {
   const { logIn } = useAuthUser();
-  const { isUserRegistered, registerUser } = useManageUsers();
+  const { isUserRegistered } = useManageUsers();
 
   const form = useForm<SignUpFormData>({
     defaultValues: {
@@ -17,15 +17,14 @@ export const useSignUpController = () => {
   });
 
   const handleSubmit = (data: SignUpFormData) => {
-    if (isUserRegistered(data.username)) {
+    if (!isUserRegistered(data.username)) {
       form.setError("username", {
-        message: "User already registered",
+        message: "User not registered",
         type: "manual",
       });
       return;
     }
 
-    registerUser(data.username);
     logIn(data.username);
     form.reset();
   };

@@ -9,5 +9,5 @@ export function RedirectWithPermissions() {
     return <Navigate to="/app" />;
   }
 
-  return <Navigate to="/auth/sign-up" />;
+  return <Navigate to="/auth/sign-in" />;
 }

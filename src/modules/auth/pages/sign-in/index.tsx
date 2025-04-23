@@ -17,10 +17,10 @@ import {
 import { Input } from "@/components/ui/input";
 import { NavLink } from "react-router";
 
-import { useSignUpController } from "./sign-up.controller";
+import { useSignInController } from "./sign-in.controller";
 
-export function SignUpPage() {
-  const { disabled, form, handleSubmit } = useSignUpController();
+export function SignInPage() {
+  const { disabled, form, handleSubmit } = useSignInController();
 
   return (
     <Form {...form}>
@@ -30,7 +30,7 @@ export function SignUpPage() {
       >
         <Card>
           <CardHeader>
-            <CardTitle>Welcome to CodeLeap network!</CardTitle>
+            <CardTitle>Login to CodeLeap network</CardTitle>
           </CardHeader>
 
           <CardContent>
@@ -39,7 +39,7 @@ export function SignUpPage() {
               name="username"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Please enter your username</FormLabel>
+                  <FormLabel>Username</FormLabel>
                   <FormControl>
                     <Input placeholder="E.g.: John Doe" {...field} />
                   </FormControl>
@@ -49,12 +49,12 @@ export function SignUpPage() {
             />
 
             <p className="text-sm text-muted-foreground mt-4">
-              Already have an account?{" "}
+              Don't have an account?{" "}
               <NavLink
                 className="text-blue-500 inline-block"
-                to="/auth/sign-in"
+                to="/auth/sign-up"
               >
-                Sign in here
+                Sign up here
               </NavLink>
             </p>
           </CardContent>

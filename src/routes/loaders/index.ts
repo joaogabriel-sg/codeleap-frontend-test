@@ -17,7 +17,7 @@ const privateRouteLoader = () => {
   const isAuthenticated = !!username;
 
   if (!isAuthenticated) {
-    return redirect("/auth/sign-up");
+    return redirect("/auth/sign-in");
   }
 
   return null;

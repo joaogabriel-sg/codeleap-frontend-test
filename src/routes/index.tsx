@@ -1,6 +1,6 @@
 import { AppLayout } from "@/modules/app/components/layouts/app-layout";
 import { PostsPage } from "@/modules/app/modules/posts";
-import { AuthLayout, SignUpPage } from "@/modules/auth";
+import { AuthLayout, SignInPage, SignUpPage } from "@/modules/auth";
 import { createBrowserRouter } from "react-router";
 
 import { loaders } from "./loaders";
@@ -16,6 +16,10 @@ export const router = createBrowserRouter([
       {
         Component: SignUpPage,
         path: "sign-up",
+      },
+      {
+        Component: SignInPage,
+        path: "sign-in",
       },
     ],
     Component: AuthLayout,
