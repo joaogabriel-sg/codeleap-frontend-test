@@ -1,17 +1,29 @@
 import { useDialog } from "@/shared/hooks/use-dialog";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useInView } from "react-intersection-observer";
 
 import { useListPostsQuery } from "../../hooks/queries/use-list-posts-query";
 import { Post } from "../../types/posts.types";
 
 export const usePostsPageController = () => {
-  const { data, isLoading: isLoadingPostsList } = useListPostsQuery();
+  const {
+    data,
+    fetchNextPage: fetchMorePosts,
+    hasNextPage: hasMorePostsToFetch,
+    isFetchingNextPage: isFetchingMorePosts,
+    isLoading: isLoadingPostsList,
+  } = useListPostsQuery();
+
   const [selectedPost, setSelectedPost] = useState<null | Post>(null);
+
   const deletePostAlertDialog = useDialog();
   const updatePostDialog = useDialog();
 
-  const posts = data?.results ?? [];
-  const showEmptyState = !isLoadingPostsList && posts.length === 0;
+  const [lastListItemRef, isLastListItemInView] = useInView();
+
+  const posts = useMemo(() => {
+    return data?.pages.flatMap((page) => page.results) ?? [];
+  }, [data?.pages]);
 
   const handleOpenDeletePostAlertDialog = (post: Post) => {
     setSelectedPost(post);
@@ -33,8 +45,14 @@ export const usePostsPageController = () => {
     updatePostDialog.close();
   };
 
+  useEffect(() => {
+    if (isLastListItemInView && !isFetchingMorePosts) {
+      fetchMorePosts();
+    }
+  }, [fetchMorePosts, isFetchingMorePosts, isLastListItemInView]);
+
   return {
-    dialogs: {
+    dialog: {
       deletePostAlertDialog,
       onCloseDeletePostAlertDialog: handleCloseDeletePostAlertDialog,
       onCloseUpdatePostDialog: handleCloseUpdatePostDialog,
@@ -42,11 +60,17 @@ export const usePostsPageController = () => {
       onOpenUpdatePostDialog: handleOpenUpdatePostDialog,
       updatePostDialog,
     },
+    pagination: {
+      hasMorePostsToFetch,
+      isLastListItemInView,
+      lastListItemRef,
+    },
     posts,
     selectedPost,
     state: {
-      isEmpty: showEmptyState,
-      isLoadingPostsList,
+      canShowEmptyState: !isLoadingPostsList && posts.length === 0,
+      canShowLoading: isLoadingPostsList || isFetchingMorePosts,
+      canShowPosts: !isLoadingPostsList && posts.length > 0,
     },
   };
 };

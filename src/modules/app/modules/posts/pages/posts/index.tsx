@@ -21,7 +21,8 @@ import { usePostsPageController } from "./posts.controller";
 
 export function PostsPage() {
   const { logOut, username } = useAuthUser();
-  const { dialogs, posts, selectedPost, state } = usePostsPageController();
+  const { dialog, pagination, posts, selectedPost, state } =
+    usePostsPageController();
 
   return (
     <div className="mx-auto max-w-3xl bg-white min-h-screen">
@@ -35,7 +36,65 @@ export function PostsPage() {
       <div className="space-y-6 p-6">
         <CreatePostForm />
 
-        {state.isLoadingPostsList &&
+        {state.canShowPosts && (
+          <>
+            {posts.map((post) => (
+              <PostCardRoot className="max-w-3xl" key={post.id}>
+                <PostCardHeader>
+                  <PostCardTitle>{post.title}</PostCardTitle>
+
+                  {username === post.username && (
+                    <PostCardActions>
+                      <Button
+                        aria-label="Delete post"
+                        data-slot="card-action-button"
+                        onClick={() => dialog.onOpenDeletePostAlertDialog(post)}
+                        variant="ghost"
+                      >
+                        <Trash2Icon className="size-6" />
+                      </Button>
+                      <Button
+                        aria-label="Edit post"
+                        data-slot="card-action-button"
+                        onClick={() => dialog.onOpenUpdatePostDialog(post)}
+                        variant="ghost"
+                      >
+                        <PencilIcon className="size-6" />
+                      </Button>
+                    </PostCardActions>
+                  )}
+                </PostCardHeader>
+
+                <PostCardContent>
+                  <PostCardDetails>
+                    <PostCardMention>@{post.username}</PostCardMention>
+                    <PostCardTime>
+                      {formatRelativeTime(post.created_datetime)}
+                    </PostCardTime>
+                  </PostCardDetails>
+
+                  <p className="text-base">{post.content}</p>
+                </PostCardContent>
+              </PostCardRoot>
+            ))}
+
+            {pagination.hasMorePostsToFetch && (
+              <div ref={pagination.lastListItemRef} />
+            )}
+          </>
+        )}
+
+        {state.canShowEmptyState && (
+          <div className="flex h-96 items-center justify-center">
+            <p className="text-lg text-muted-foreground text-center">
+              No posts available.
+              <br />
+              Please check back later.
+            </p>
+          </div>
+        )}
+
+        {state.canShowLoading &&
           Array.from({ length: 5 }).map((_, index) => (
             <PostCardRoot key={index}>
               <PostCardHeader className="bg-transparent">
@@ -54,68 +113,17 @@ export function PostsPage() {
               </PostCardContent>
             </PostCardRoot>
           ))}
-
-        {!state.isLoadingPostsList &&
-          posts.map((post) => (
-            <PostCardRoot className="max-w-3xl" key={post.id}>
-              <PostCardHeader>
-                <PostCardTitle>{post.title}</PostCardTitle>
-
-                {username === post.username && (
-                  <PostCardActions>
-                    <Button
-                      aria-label="Delete post"
-                      data-slot="card-action-button"
-                      onClick={() => dialogs.onOpenDeletePostAlertDialog(post)}
-                      variant="ghost"
-                    >
-                      <Trash2Icon className="size-6" />
-                    </Button>
-                    <Button
-                      aria-label="Edit post"
-                      data-slot="card-action-button"
-                      onClick={() => dialogs.onOpenUpdatePostDialog(post)}
-                      variant="ghost"
-                    >
-                      <PencilIcon className="size-6" />
-                    </Button>
-                  </PostCardActions>
-                )}
-              </PostCardHeader>
-
-              <PostCardContent>
-                <PostCardDetails>
-                  <PostCardMention>@{post.username}</PostCardMention>
-                  <PostCardTime>
-                    {formatRelativeTime(post.created_datetime)}
-                  </PostCardTime>
-                </PostCardDetails>
-
-                <p className="text-base">{post.content}</p>
-              </PostCardContent>
-            </PostCardRoot>
-          ))}
-
-        {state.isEmpty && (
-          <div className="flex h-96 items-center justify-center">
-            <p className="text-lg text-muted-foreground text-center">
-              No posts available.
-              <br />
-              Please check back later.
-            </p>
-          </div>
-        )}
       </div>
 
       <DeletePostAlertDialog
-        isOpen={dialogs.deletePostAlertDialog.visible}
-        onOpenChange={dialogs.onCloseDeletePostAlertDialog}
+        isOpen={dialog.deletePostAlertDialog.visible}
+        onOpenChange={dialog.onCloseDeletePostAlertDialog}
         post={selectedPost}
       />
 
       <UpdatePostDialog
-        isOpen={dialogs.updatePostDialog.visible}
-        onClose={dialogs.onCloseUpdatePostDialog}
+        isOpen={dialog.updatePostDialog.visible}
+        onClose={dialog.onCloseUpdatePostDialog}
         post={selectedPost}
       />
     </div>

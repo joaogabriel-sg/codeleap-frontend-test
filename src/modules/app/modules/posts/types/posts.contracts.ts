@@ -12,6 +12,11 @@ export type InputDeletePost = {
   id: number;
 };
 
+export type InputListPosts = {
+  limit: number;
+  offset: number;
+};
+
 export type InputUpdatePost = {
   content: string;
   id: number;

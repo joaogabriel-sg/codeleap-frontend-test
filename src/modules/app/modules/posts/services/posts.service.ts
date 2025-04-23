@@ -4,6 +4,7 @@ import { Pagination } from "@/shared/types/pagination";
 import {
   InputCreatePost,
   InputDeletePost,
+  InputListPosts,
   InputUpdatePost,
   OutputCreatePost,
   OutputListPosts,
@@ -21,8 +22,13 @@ class PostsService {
     await api.delete(`/careers/${input.id}/`);
   }
 
-  async list(): Promise<OutputListPosts> {
-    const { data } = await api.get<Pagination<Post>>("/careers/");
+  async list(input: InputListPosts): Promise<OutputListPosts> {
+    const { data } = await api.get<Pagination<Post>>("/careers/", {
+      params: {
+        limit: input.limit,
+        offset: input.offset,
+      },
+    });
     return data;
   }
 
