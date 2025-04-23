@@ -10,6 +10,7 @@ export const usePostsPageController = () => {
     data,
     fetchNextPage: fetchMorePosts,
     hasNextPage: hasMorePostsToFetch,
+    isError: isErrorListingPosts,
     isFetchingNextPage: isFetchingMorePosts,
     isLoading: isLoadingPostsList,
   } = useListPostsQuery();
@@ -75,6 +76,7 @@ export const usePostsPageController = () => {
     selectedPost,
     state: {
       canShowEmptyState: !isLoadingPostsList && posts.length === 0,
+      canShowError: !isLoadingPostsList && isErrorListingPosts,
       canShowLoading: isLoadingPostsList || isFetchingMorePosts,
       canShowPosts: !isLoadingPostsList && posts.length > 0,
     },
