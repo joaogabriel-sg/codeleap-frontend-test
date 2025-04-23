@@ -50,12 +50,22 @@ export function PostsPage() {
           </>
         )}
 
-        {state.canShowEmptyState && (
+        {!state.canShowError && state.canShowEmptyState && (
           <div className="flex h-96 items-center justify-center">
             <p className="text-lg text-muted-foreground text-center">
               No posts available.
               <br />
               Please check back later.
+            </p>
+          </div>
+        )}
+
+        {state.canShowError && (
+          <div className="flex h-96 items-center justify-center">
+            <p className="text-lg text-muted-foreground text-center">
+              An error occurred while fetching posts.
+              <br />
+              Please try again later.
             </p>
           </div>
         )}
