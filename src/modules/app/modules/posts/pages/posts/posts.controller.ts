@@ -8,6 +8,7 @@ export const usePostsPageController = () => {
   const { data, isLoading: isLoadingPostsList } = useListPostsQuery();
   const [selectedPost, setSelectedPost] = useState<null | Post>(null);
   const deletePostAlertDialog = useDialog();
+  const updatePostDialog = useDialog();
 
   const posts = data?.results ?? [];
   const showEmptyState = !isLoadingPostsList && posts.length === 0;
@@ -17,12 +18,25 @@ export const usePostsPageController = () => {
     deletePostAlertDialog.show();
   };
 
+  const handleOpenUpdatePostDialog = (post: Post) => {
+    setSelectedPost(post);
+    updatePostDialog.show();
+  };
+
+  const handleCloseUpdatePostDialog = () => {
+    setSelectedPost(null);
+    updatePostDialog.close();
+  };
+
   return {
     deletePostAlertDialog,
+    handleCloseUpdatePostDialog,
     handleOpenDeletePostAlertDialog,
+    handleOpenUpdatePostDialog,
     isLoadingPostsList,
     posts,
     selectedPost,
     showEmptyState,
+    updatePostDialog,
   };
 };

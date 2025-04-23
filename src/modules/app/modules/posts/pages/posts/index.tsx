@@ -16,17 +16,21 @@ import {
   PostCardTime,
   PostCardTitle,
 } from "../../components/post-card";
+import { UpdatePostDialog } from "../../components/update-post-dialog";
 import { usePostsPageController } from "./posts.controller";
 
 export function PostsPage() {
   const loggedUser = useLoggedUser();
   const {
     deletePostAlertDialog,
+    handleCloseUpdatePostDialog,
     handleOpenDeletePostAlertDialog,
+    handleOpenUpdatePostDialog,
     isLoadingPostsList,
     posts,
     selectedPost,
     showEmptyState,
+    updatePostDialog,
   } = usePostsPageController();
 
   return (
@@ -77,6 +81,7 @@ export function PostsPage() {
                     <Button
                       aria-label="Edit post"
                       data-slot="card-action-button"
+                      onClick={() => handleOpenUpdatePostDialog(post)}
                       variant="ghost"
                     >
                       <PencilIcon className="size-6" />
@@ -112,6 +117,12 @@ export function PostsPage() {
       <DeletePostAlertDialog
         isOpen={deletePostAlertDialog.visible}
         onOpenChange={deletePostAlertDialog.change}
+        post={selectedPost}
+      />
+
+      <UpdatePostDialog
+        isOpen={updatePostDialog.visible}
+        onClose={handleCloseUpdatePostDialog}
         post={selectedPost}
       />
     </div>
