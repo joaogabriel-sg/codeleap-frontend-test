@@ -1,7 +1,7 @@
 {
-  "name": "vite-template",
-  "author": "João Gabriel <main.joaogabrielsg@gmail.com>",
-  "description": "A template for React projects using Vite and TypeScript.",
+  "name": "codeleap-frontend-test",
+  "author": "João Gabriel <job.joaogabrielsg@gmail.com>",
+  "description": "CodeLeap Frontend Test",
   "private": true,
   "version": "0.0.0",
   "type": "module",
