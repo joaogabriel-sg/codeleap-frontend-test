@@ -7,6 +7,10 @@
 </p>
 
 <p align="center">
+  Live version: https://codeleap-frontend-test-blond.vercel.app/
+</p>
+
+<p align="center">
   <img alt="CodeLeap" src='https://codeleap.co.uk/images/codeleap-share.png' width="600" style="aspect-ratio: auto;"/>
 </p>
 
@@ -33,6 +37,10 @@ pnpm dev
 ```
 
 The app will be available at [http://localhost:5173](http://localhost:5173) by default.
+
+### Live
+
+You can also check the live version of this project at [https://codeleap-frontend-test.vercel.app/](https://codeleap-frontend-test.vercel.app/).
 
 ## Technologies
 
