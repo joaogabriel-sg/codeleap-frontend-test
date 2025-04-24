@@ -10,6 +10,8 @@
   <img alt="CodeLeap" src='https://codeleap.co.uk/images/codeleap-share.png' width="600" style="aspect-ratio: auto;"/>
 </p>
 
+https://github.com/user-attachments/assets/34ac1f6e-dea6-4f15-8ac4-5dd7baff5c49
+
 ## Getting started
 
 ### Download and Install
@@ -56,6 +58,10 @@ The app will be available at [http://localhost:5173](http://localhost:5173) by d
 - `pnpm lint:fix` — fix lint issues
 - `pnpm typeCheck` — run TypeScript type checks
 - `preinstall` - prevent installing with npm or yarn, use pnpm instead
+
+## Feature-Based Architecture (Modules)
+
+This project follows a feature-based modular architecture, which organizes the application around business domains (e.g., `auth`, `posts`) rather than file types (e.g., `components/`, `pages/`, `types/`, `services/`). This approach promotes scalability, maintainability, and domain clarity.
 
 ## Path Mapping (Alias)
 
