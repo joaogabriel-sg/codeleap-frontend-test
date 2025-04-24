@@ -1,17 +1,24 @@
-# Vite React Template
+<h1 align="center">CodeLeap Frontend Test</h1>
 
-A ready-to-use template to bootstrap React projects with Vite, React and TypeScript — optimized for speed, dev experience, and scalability.
+<p align="center">
+  This project is a frontend test for <a href="https://codeleap.co.uk/" target="_blank">CodeLeap</a>, built with Vite, React, and TypeScript.
+  </br>
+  It includes a simple UI for creating and displaying posts, with a focus on clean code and best practices.
+</p>
+
+<p align="center">
+  <img alt="CodeLeap" src='https://codeleap.co.uk/images/codeleap-share.png' width="600" style="aspect-ratio: auto;"/>
+</p>
 
 ## Getting started
 
 ### Download and Install
 
-Use `degit` to scaffold a new project based on this template:
+To download this project and install its dependencies, run:
 
 ```
-npx degit https://github.com/joaogabriel-sg/vite-react-template#main my-app
-cd my-app
-pnpm install
+git clone https://github.com/joaogabriel-sg/codeleap-frontend-test.git
+cd codeleap-frontend-test
 pnpm setup:project
 ```
 
@@ -25,21 +32,19 @@ pnpm dev
 
 The app will be available at [http://localhost:5173](http://localhost:5173) by default.
 
-## What's included
-
-This template comes pre-configured with:
+## Technologies
 
 - ⚡️ Vite — build tool and dev server
 - ⚛️ React — UI library
 - 🧠 TypeScript — static typing
 - 🎨 Tailwind CSS — utility-first CSS framework
+- 🧩 ShadCh UI — component library
+- 📦 Tanstack Query — data fetching and caching
 - 🧹 ESLint — code linting
 - ✨ Prettier — code formatting
-- 🧪 Vitest — unit testing
-- 🧭 Playwright — end-to-end testing
 - 🪝 Lefthook — git hooks
 - 🔎 Path mapping — use "@/..." instead of relative paths
-- ✅ PR workflow — lint, type check, and unit tests before merging
+- ✅ PR workflow — lint and type check before merging
 
 ## Available scripts
 
@@ -50,13 +55,7 @@ This template comes pre-configured with:
 - `pnpm lint` — run ESLint
 - `pnpm lint:fix` — fix lint issues
 - `pnpm typeCheck` — run TypeScript type checks
-- `pnpm test:unit` — run unit tests (Vitest)
-- `pnpm test:unit:watch` — run unit tests in watch mode
-- `pnpm test:unit:coverage` — run unit tests with coverage
-- `pnpm test:unit:coverage:watch` — watch mode + coverage
-- `pnpm test:e2e` — run e2e tests (Playwright)
-- `pnpm test:e2e:ui` — run e2e tests with UI
-- `pnpm test:e2e:report` — show Playwright HTML report
+- `preinstall` - prevent installing with npm or yarn, use pnpm instead
 
 ## Path Mapping (Alias)
 
@@ -73,6 +72,10 @@ The alias is configured in:
 
 - `tsconfig.json` — for TypeScript support
 - `vite.config.ts` — for Vite resolution
+
+## Author
+
+This project was created by [João Gabriel](https://www.linkedin.com/in/joaogabriel-sg/).
 
 ## License
 
